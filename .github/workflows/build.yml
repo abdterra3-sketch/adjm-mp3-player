@@ -205,12 +205,21 @@ jobs:
           .key.on{background:linear-gradient(#e8ff60 0 14%,#a4c820 14%);box-shadow:0 0 14px #cf3}
           .key:active{transform:translateY(1px)}
           .ic{font:400 22px/22px Arial;height:22px;letter-spacing:0}
-          #pl{display:none;position:absolute;left:3%;right:3%;top:41%;bottom:128px;z-index:5;background:#0b2f44;border:2px solid #3d6f78;overflow:auto}
-          #pl.show{display:block}
-          #pl div{display:flex;align-items:center;padding:9px 10px;font-size:15px;border-bottom:1px solid #fff2;cursor:pointer;gap:8px}
-          #pl div.cur{background:#1e6a8c;color:#ff0}
-          #pl div b{flex:1;font-weight:400;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-          #pl div u{text-decoration:none;opacity:.7;padding:0 6px}
+          #pl{display:none;position:absolute;left:3%;right:3%;top:46%;bottom:128px;z-index:5;background:#0b2f44;border:2px solid #3d6f78;overflow:hidden}
+          #pl.show{display:flex;flex-direction:column}
+          .tabs{flex:0 0 auto;display:flex;gap:6px;padding:8px;overflow-x:auto;border-bottom:1px solid #fff3}
+          .tab{flex:0 0 auto;border:1px solid #fff5;background:#14506f;color:#fff;border-radius:14px;padding:6px 12px;font-size:13px;white-space:nowrap}
+          .tab.act{background:#c8d02a;color:#000;font-weight:700}
+          .tab.nw{background:#3a7d3a}
+          .newrow{flex:0 0 auto;display:flex;gap:6px;padding:8px;border-bottom:1px solid #fff3}
+          .newrow input{flex:1;min-width:0;padding:8px;font-size:15px;border:0;border-radius:4px;-webkit-user-select:text;user-select:text}
+          .newrow button,.delpl{border:0;border-radius:4px;background:#c8d02a;color:#000;font-weight:700;padding:8px 12px}
+          .delpl{background:#a33;color:#fff;margin:8px;font-size:13px;flex:0 0 auto}
+          .songs{flex:1;min-height:0;overflow:auto}
+          .it{display:flex;align-items:center;padding:9px 10px;font-size:15px;border-bottom:1px solid #fff2;cursor:pointer;gap:8px}
+          .it.cur{background:#1e6a8c;color:#ff0}
+          .it b{flex:1;font-weight:400;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+          .it u{text-decoration:none;opacity:.7;padding:0 6px}
           #pl p{margin:0;padding:14px;text-align:center;opacity:.8;font-size:14px}
           </style>
           </head>
@@ -242,7 +251,8 @@ jobs:
           <script>
           const $=id=>document.getElementById(id);
           const a=new Audio();a.preload='auto';
-          let ctx,an,vol,low,high,norm,kar,data,list=[],cur=-1,shuf=false,seeking=false;
+          let ctx,an,vol,low,high,norm,kar,data,shuf=false,seeking=false,cur=-1;
+          const pls=[{name:'Playlist 1',songs:[]}];let vi=0,adding=false,list=pls[0].songs;
           const held=new Array(6).fill(0);
           // LED VU: 3 panel x 2 batang x 4 LED
           const N=8;const barH='<div class="bar">'+'<div class="led"></div>'.repeat(N)+'</div>';
@@ -297,6 +307,7 @@ jobs:
           $('next').onclick=next;
           $('prev').onclick=()=>{if(a.currentTime>3)a.currentTime=0;else play(cur-1)};
           $('pp').onclick=()=>{
+            if(cur<0)list=pls[vi].songs;
             if(!list.length){$('fi').click();return}
             initAudio();
             if(cur<0)play(0);else if(a.paused)a.play();else a.pause();
@@ -306,10 +317,11 @@ jobs:
           $('sk').addEventListener('pointerup',()=>seeking=false);
           $('add').onclick=()=>$('fi').click();
           $('fi').onchange=e=>{
-            const first=list.length;
-            [...e.target.files].forEach(f=>list.push({name:f.name.replace(/\.[^.]+$/,''),url:URL.createObjectURL(f)}));
-            e.target.value='';renderList();
-            if(cur<0&&list.length)play(first);
+            const sg=pls[vi].songs,first=sg.length;
+            [...e.target.files].forEach(f=>sg.push({name:f.name.replace(/\.[^.]+$/,''),url:URL.createObjectURL(f)}));
+            e.target.value='';
+            if(cur<0&&sg.length>first){list=sg;play(first)}
+            renderList();
           };
           $('shf').onclick=()=>{shuf=!shuf;$('shf').classList.toggle('on',shuf)};
           $('kar').onclick=()=>{
@@ -317,24 +329,50 @@ jobs:
             $('kar').classList.toggle('on',on);
             norm.gain.value=on?0:1;kar.gain.value=on?1.4:0;
           };
-          $('pbtn').onclick=()=>{$('pl').classList.toggle('show');$('pbtn').classList.toggle('on',$('pl').classList.contains('show'))};
+          function placePl(){const A=document.querySelector('.app'),pl=$('pl');pl.style.top=document.querySelector('.mix').offsetTop+'px';pl.style.bottom=(A.clientHeight-document.querySelector('.btns').offsetTop+4)+'px'}
+          $('pbtn').onclick=()=>{placePl();$('pl').classList.toggle('show');$('pbtn').classList.toggle('on',$('pl').classList.contains('show'))};
+          window.addEventListener('resize',placePl);
+          function stopAll(){a.pause();a.removeAttribute('src');cur=-1;setNP('----- NOW PLAYING -----');$('sk').value=0;$('tc').textContent=$('td').textContent='00:00'}
           function renderList(){
-            const p=$('pl');
-                      if(!list.length){p.innerHTML='<p>Playlist kosong. Tekan tombol ☰+ untuk menambah lagu MP3.</p>';return}
-            p.innerHTML='';
-            list.forEach((s,i)=>{
-              const d=document.createElement('div');if(i===cur)d.className='cur';
+            const p=$('pl');p.innerHTML='';
+            const tb=document.createElement('div');tb.className='tabs';
+            pls.forEach((q,k)=>{const t=document.createElement('button');t.className='tab'+(k===vi?' act':'');t.textContent=q.name+' ('+q.songs.length+')';t.onclick=()=>{vi=k;adding=false;renderList()};tb.appendChild(t)});
+            const nb=document.createElement('button');nb.className='tab nw';nb.textContent='+ Baru';nb.onclick=()=>{adding=!adding;renderList()};tb.appendChild(nb);
+            p.appendChild(tb);
+            if(adding){
+              const r=document.createElement('div');r.className='newrow';
+              r.innerHTML='<input id="nn" type="text" maxlength="24" placeholder="Nama playlist baru"><button id="ok">BUAT</button>';
+              p.appendChild(r);
+              const mk=()=>{const v=$('nn').value.trim()||'Playlist '+(pls.length+1);pls.push({name:v,songs:[]});vi=pls.length-1;adding=false;renderList()};
+              $('ok').onclick=mk;$('nn').onkeydown=ev=>{if(ev.key==='Enter')mk()};
+              setTimeout(()=>$('nn').focus(),50);
+            }
+            const sg=pls[vi].songs,box=document.createElement('div');box.className='songs';
+            if(!sg.length)box.innerHTML='<p>Playlist kosong. Tekan tombol ☰+ untuk menambah lagu MP3 ke playlist ini.</p>';
+            sg.forEach((s,i)=>{
+              const d=document.createElement('div');d.className='it'+(i===cur&&sg===list?' cur':'');
               d.innerHTML='<span>'+(i+1)+'.</span><b></b><u title="Hapus">✕</u>';
               d.querySelector('b').textContent=s.name;
-              d.onclick=()=>play(i);
+              d.onclick=()=>{list=sg;play(i)};
               d.querySelector('u').onclick=ev=>{
-                ev.stopPropagation();URL.revokeObjectURL(s.url);list.splice(i,1);
-                if(i===cur){a.pause();a.removeAttribute('src');cur=-1;setNP('----- NOW PLAYING -----');$('sk').value=0;$('tc').textContent=$('td').textContent='00:00'}
-                else if(i<cur)cur--;
+                ev.stopPropagation();URL.revokeObjectURL(s.url);sg.splice(i,1);
+                if(sg===list){if(i===cur)stopAll();else if(i<cur)cur--}
                 renderList();
               };
-              p.appendChild(d);
+              box.appendChild(d);
             });
+            p.appendChild(box);
+            if(pls.length>1){
+              const x=document.createElement('button');x.className='delpl';x.textContent='Hapus playlist ini';
+              x.onclick=()=>{
+                const q=pls[vi];if(q.songs===list)stopAll();
+                q.songs.forEach(s=>URL.revokeObjectURL(s.url));
+                pls.splice(vi,1);vi=Math.max(0,vi-1);
+                if(cur<0)list=pls[vi].songs;
+                renderList();
+              };
+              p.appendChild(x);
+            }
           }
           renderList();
           </script>

@@ -151,59 +151,61 @@ jobs:
           :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--pg:#eef1f4}
           @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--pg:#14181c;color-scheme:dark}}
           :root[data-theme="dark"]{--pg:#14181c;color-scheme:dark}
-          *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+          *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+          html,body{height:100%;margin:0;overflow:hidden}
           html{scroll-padding-top:env(safe-area-inset-top,0px)}
-          body{margin:0;background:var(--pg);font-family:Roboto,"Segoe UI",Arial,sans-serif;display:flex;justify-content:center;padding:16px 8px}
-          .app{width:100%;max-width:380px;border-radius:6px;overflow:hidden;color:#fff;
-          background:linear-gradient(#c3c3c3 0,#c9c9c9 12%,#7b95a8 30%,#14506f 55%,#145470 100%);padding:14px 12px 18px;box-shadow:0 6px 24px #0005}
-          .title{display:flex;justify-content:center;align-items:baseline;gap:10px;height:62px;align-items:center}
-          .t1{font:900 30px "Arial Black",Impact,sans-serif;color:#fff;-webkit-text-stroke:2px #000;paint-order:stroke fill;letter-spacing:1px}
-          .t2{font:300 38px Arial,sans-serif;color:#1e9bf0}
-          .t3{font:italic 700 34px "Brush Script MT","Segoe Script",cursive;color:#fff;-webkit-text-stroke:1.5px #000;paint-order:stroke fill}
-          .vu{display:flex;background:#000;gap:0;padding:0;height:128px;margin-top:4px}
-          .panel{flex:1;display:flex;gap:7px;padding:6px 8px;border-left:4px solid #0b5b8a;background:#0c0c0c}
+          body{background:var(--pg);font-family:Roboto,"Segoe UI",Arial,sans-serif;display:flex;justify-content:center}
+          .app{position:relative;width:100%;max-width:430px;height:100%;display:flex;flex-direction:column;overflow:hidden;color:#fff;
+          background:linear-gradient(#c3c3c3 0,#c9c9c9 12%,#7b95a8 30%,#14506f 55%,#145470 100%);padding:2% 3% 2%}
+          .title{flex:0 0 8%;min-height:44px;display:flex;justify-content:center;align-items:center;gap:8px}
+          .t1{font:900 26px "Arial Black",Impact,sans-serif;color:#fff;-webkit-text-stroke:2px #000;paint-order:stroke fill;letter-spacing:1px}
+          .t2{font:300 32px Arial,sans-serif;color:#1e9bf0}
+          .t3{font:italic 700 30px "Brush Script MT","Segoe Script",cursive;color:#fff;-webkit-text-stroke:1.5px #000;paint-order:stroke fill}
+          .vu{flex:0 0 13%;min-height:70px;display:flex;background:#000;margin-top:1%}
+          .panel{flex:1;display:flex;gap:6px;padding:5px 7px;border-left:4px solid #0b5b8a;background:#0c0c0c}
           .bar{flex:1;display:flex;flex-direction:column;gap:3px}
-          .led{flex:1;border-radius:3px;opacity:.16;transition:opacity .05s;box-shadow:inset 0 0 4px #fff8}
-          .led.on{opacity:1;box-shadow:0 0 8px currentColor,inset 0 0 4px #fff9}
-          .led{background:#3f0;color:#3f0}
+          .led{flex:1;border-radius:3px;opacity:.16;transition:opacity .05s;box-shadow:inset 0 0 4px #fff8;background:#3f0;color:#3f0}
           .led:nth-child(-n+4){background:#ff0;color:#ff0}
           .led:nth-child(-n+2){background:#ff4500;color:#ff4500}
-          .disp{margin:10px 2px 0;height:60px;background:#5fa3a6;border:3px solid #3d6f78;outline:2px solid #345;display:flex;align-items:center;overflow:hidden;white-space:nowrap}
-          .disp span{display:inline-block;padding:0 12px;font-size:25px;letter-spacing:.5px;margin:0 auto}
+          .led.on{opacity:1;box-shadow:0 0 8px currentColor,inset 0 0 4px #fff9}
+          .disp{flex:0 0 7%;min-height:40px;margin:2% 2px 0;background:#5fa3a6;border:3px solid #3d6f78;outline:2px solid #345;display:flex;align-items:center;overflow:hidden;white-space:nowrap}
+          .disp span{display:inline-block;padding:0 12px;font-size:22px;letter-spacing:.5px;margin:0 auto}
           .disp span.run{margin:0;animation:run 12s linear infinite}
           @keyframes run{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
-          .seek{display:flex;align-items:center;gap:6px;margin:12px 2px 0;font-size:14px}
+          .seek{flex:0 0 5%;min-height:26px;display:flex;align-items:center;gap:6px;margin:1% 2px 0;font-size:14px}
           input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;margin:0}
           .seek input{flex:1;height:22px}
           .seek input::-webkit-slider-runnable-track{height:3px;background:#fff;border-radius:2px}
           .seek input::-moz-range-track{height:3px;background:#fff}
           .seek input::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#f00;margin-top:-6.5px}
           .seek input::-moz-range-thumb{width:16px;height:16px;border:0;border-radius:50%;background:#f00}
-          .ctl{display:flex;justify-content:space-around;align-items:center;margin:10px 0 4px}
-          .ctl button{background:none;border:0;padding:8px;cursor:pointer;color:#fff}
-          .play{width:78px;height:78px;border-radius:50%;background:red!important;border:3px solid #fff!important;display:grid;place-items:center;padding:0!important}
+          .ctl{flex:0 0 10%;min-height:60px;display:flex;justify-content:space-around;align-items:center}
+          .ctl button{background:none;border:0;padding:6px;cursor:pointer;color:#fff}
+          .play{width:62px;height:62px;border-radius:50%;background:red!important;border:3px solid #fff!important;display:grid;place-items:center;padding:0!important}
+          .play svg{width:40px;height:40px}
+          .ctl button svg{display:block}
           svg{display:block}
-          .mix{display:flex;justify-content:space-between;padding:0 6px;margin-top:8px}
-          .ch{width:100px;display:flex;flex-direction:column;align-items:center}
-          .sl{position:relative;width:100px;height:262px;display:flex;justify-content:center}
-          .sl::before,.sl::after{content:"";position:absolute;top:8px;bottom:12px;width:14px;
-          background:repeating-linear-gradient(#fff 0 2px,transparent 2px 31px)}
-          .sl::before{left:0}.sl::after{right:0}
-          .sl i{position:absolute;top:0;font:400 28px Arial;font-style:normal}
-          .sl i.a{left:-4px}.sl i.b{right:6px}
-          input.v{writing-mode:vertical-lr;direction:rtl;width:52px;height:262px;cursor:pointer;touch-action:none}
+          .mix{flex:1;min-height:0;display:flex;padding:0 2px;margin-top:1%}
+          .ch{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center}
+          .sl{position:relative;flex:1;min-height:0;width:100%}
+          .sl::before,.sl::after{content:"";position:absolute;top:40px;bottom:14px;width:12px;border-bottom:2px solid #fff;background:linear-gradient(#fff 0 2px,transparent 2px) 0 0/100% 10% repeat-y}
+          .sl::before{left:calc(50% - 48px)}.sl::after{left:calc(50% + 36px)}
+          .sl i{position:absolute;top:2px;font:400 24px/1 Arial;font-style:normal}
+          .sl i.a{left:calc(50% - 50px)}.sl i.b{left:calc(50% + 34px)}
+          input.v{position:absolute;left:50%;margin-left:-26px;top:28px;bottom:0;width:52px;height:calc(100% - 28px);writing-mode:vertical-lr;direction:rtl;cursor:pointer;touch-action:none}
           input.v::-webkit-slider-runnable-track{width:16px;border-radius:3px;background:linear-gradient(90deg,#000,#444 45%,#000)}
           input.v::-moz-range-track{width:16px;border-radius:3px;background:linear-gradient(90deg,#000,#444 45%,#000)}
           input.v::-webkit-slider-thumb{-webkit-appearance:none;width:46px;height:28px;border-radius:3px;border:2px solid #fff4;background:linear-gradient(#ff3b3b 0 40%,#fff 40% 55%,#f22 55%)}
           input.v::-moz-range-thumb{width:46px;height:28px;border-radius:3px;border:2px solid #fff4;background:linear-gradient(#ff3b3b 0 40%,#fff 40% 55%,#f22 55%)}
-          .lab{font-size:20px;margin-top:4px;letter-spacing:.5px}
-          .btns{display:grid;grid-template-columns:1fr 1fr;row-gap:8px;margin-top:2px;justify-items:center}
-          .btns>div{display:flex;flex-direction:column;align-items:center;gap:6px;font:900 13px "Arial Black",sans-serif;letter-spacing:3px}
-          .key{width:60px;height:40px;border:4px solid #000;background:linear-gradient(#c8d02a 0 14%,#6b7320 14%);cursor:pointer;padding:0}
+          .lab{flex:0 0 auto;font-size:18px;margin-top:2px;letter-spacing:.5px}
+          .btns{flex:0 0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;row-gap:6px;margin-top:2%}
+          .btns>div{display:flex;flex-direction:column;align-items:center;gap:3px;font:900 12px "Arial Black",sans-serif;letter-spacing:2px}
+          .btns>div:nth-child(even){grid-column:3}
+          .key{width:58px;height:34px;border:4px solid #000;background:linear-gradient(#c8d02a 0 14%,#6b7320 14%);cursor:pointer;padding:0}
           .key.on{background:linear-gradient(#e8ff60 0 14%,#a4c820 14%);box-shadow:0 0 14px #cf3}
           .key:active{transform:translateY(1px)}
-          .ic{font:400 26px Arial;height:30px;line-height:30px;letter-spacing:0}
-          #pl{display:none;margin-top:14px;background:#0b2f44;border:2px solid #3d6f78;max-height:210px;overflow:auto}
+          .ic{font:400 22px/22px Arial;height:22px;letter-spacing:0}
+          #pl{display:none;position:absolute;left:3%;right:3%;top:41%;bottom:128px;z-index:5;background:#0b2f44;border:2px solid #3d6f78;overflow:auto}
           #pl.show{display:block}
           #pl div{display:flex;align-items:center;padding:9px 10px;font-size:15px;border-bottom:1px solid #fff2;cursor:pointer;gap:8px}
           #pl div.cur{background:#1e6a8c;color:#ff0}
@@ -219,9 +221,9 @@ jobs:
             <div class="disp"><span id="np">----- NOW PLAYING -----</span></div>
             <div class="seek"><span id="tc">00:00</span><input type="range" id="sk" min="0" max="1000" value="0"><span id="td">00:00</span></div>
             <div class="ctl">
-              <button id="prev" aria-label="Sebelumnya"><svg width="84" height="64" viewBox="0 0 84 64"><rect x="8" y="8" width="5" height="48" fill="#fff"/><path d="M76 10v44L22 32z" fill="#fff"/></svg></button>
+              <button id="prev" aria-label="Sebelumnya"><svg width="64" height="48" viewBox="0 0 84 64"><rect x="8" y="8" width="5" height="48" fill="#fff"/><path d="M76 10v44L22 32z" fill="#fff"/></svg></button>
               <button id="pp" class="play" aria-label="Putar"><svg id="ppi" width="52" height="52" viewBox="0 0 52 52"><path d="M16 8v36l30-18z" fill="#fff"/></svg></button>
-              <button id="next" aria-label="Berikutnya"><svg width="84" height="64" viewBox="0 0 84 64"><rect x="71" y="8" width="5" height="48" fill="#fff"/><path d="M8 10v44l54-22z" fill="#fff"/></svg></button>
+              <button id="next" aria-label="Berikutnya"><svg width="64" height="48" viewBox="0 0 84 64"><rect x="71" y="8" width="5" height="48" fill="#fff"/><path d="M8 10v44l54-22z" fill="#fff"/></svg></button>
             </div>
             <div class="mix">
               <div class="ch"><div class="sl"><i class="a">+</i><i class="b">+</i><input class="v" id="lv" type="range" min="0" max="100" value="80"></div><div class="lab">LEVEL</div></div>
@@ -318,14 +320,14 @@ jobs:
           $('pbtn').onclick=()=>{$('pl').classList.toggle('show');$('pbtn').classList.toggle('on',$('pl').classList.contains('show'))};
           function renderList(){
             const p=$('pl');
-            if(!list.length){p.innerHTML='<p>Playlist kosong. Tekan tombol ☰+ untuk menambah lagu MP3.</p>';return}
+                      if(!list.length){p.innerHTML='<p>Playlist kosong. Tekan tombol ☰+ untuk menambah lagu MP3.</p>';return}
             p.innerHTML='';
             list.forEach((s,i)=>{
               const d=document.createElement('div');if(i===cur)d.className='cur';
               d.innerHTML='<span>'+(i+1)+'.</span><b></b><u title="Hapus">✕</u>';
               d.querySelector('b').textContent=s.name;
               d.onclick=()=>play(i);
-                   d.querySelector('u').onclick=ev=>{
+              d.querySelector('u').onclick=ev=>{
                 ev.stopPropagation();URL.revokeObjectURL(s.url);list.splice(i,1);
                 if(i===cur){a.pause();a.removeAttribute('src');cur=-1;setNP('----- NOW PLAYING -----');$('sk').value=0;$('tc').textContent=$('td').textContent='00:00'}
                 else if(i<cur)cur--;

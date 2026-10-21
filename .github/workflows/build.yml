@@ -156,11 +156,15 @@ jobs:
           html{scroll-padding-top:env(safe-area-inset-top,0px)}
           body{background:var(--pg);font-family:Roboto,"Segoe UI",Arial,sans-serif;display:flex;justify-content:center}
           .app{position:relative;width:100%;max-width:430px;height:100%;display:flex;flex-direction:column;overflow:hidden;color:#fff;
-          background:linear-gradient(#c3c3c3 0,#c9c9c9 12%,#7b95a8 30%,#14506f 55%,#145470 100%);padding:2% 3% 2%}
+          background:linear-gradient(135deg,#2b2e31 0,#17191b 14%,#0c0d0e 50%,#17191b 86%,#2b2e31 100%);
+          border:1px solid #000;box-shadow:inset 0 0 0 2px #4a4e52,inset 0 2px 6px #fff3;padding:2% 3% 2%}
+          .app::before{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:linear-gradient(90deg,#555,#eee 20%,#888 50%,#eee 80%,#555)}
+          .bump{position:absolute;width:5px;height:11%;background:linear-gradient(90deg,#3a3d40,#111);border-radius:0 3px 3px 0;top:28%}
+          .bump.l{left:0}.bump.l2{left:0;top:48%}.bump.r{right:0;border-radius:3px 0 0 3px;top:36%}
           .title{flex:0 0 8%;min-height:44px;display:flex;justify-content:center;align-items:center;gap:8px}
-          .t1{font:900 26px "Arial Black",Impact,sans-serif;color:#fff;-webkit-text-stroke:2px #000;paint-order:stroke fill;letter-spacing:1px}
-          .t2{font:300 32px Arial,sans-serif;color:#1e9bf0}
-          .t3{font:italic 700 30px "Brush Script MT","Segoe Script",cursive;color:#fff;-webkit-text-stroke:1.5px #000;paint-order:stroke fill}
+          .t1{font:900 26px Arial,Helvetica,sans-serif;color:#eee;-webkit-text-stroke:.5px #888;letter-spacing:1px;text-shadow:0 1px 1px #000}
+          .t2{font:400 32px Arial,sans-serif;color:#39b6f0;text-shadow:0 1px 1px #000}
+          .t3{font:italic 700 30px "Brush Script MT","Segoe Script",cursive;color:#eee;text-shadow:0 1px 1px #000}
           .vu{flex:0 0 13%;min-height:70px;display:flex;background:#000;margin-top:1%}
           .panel{flex:1;display:flex;gap:6px;padding:5px 7px;border-left:4px solid #0b5b8a;background:#0c0c0c}
           .bar{flex:1;display:flex;flex-direction:column;gap:3px}
@@ -175,13 +179,13 @@ jobs:
           .seek{flex:0 0 5%;min-height:26px;display:flex;align-items:center;gap:6px;margin:1% 2px 0;font-size:14px}
           input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;margin:0}
           .seek input{flex:1;height:22px}
-          .seek input::-webkit-slider-runnable-track{height:3px;background:#fff;border-radius:2px}
-          .seek input::-moz-range-track{height:3px;background:#fff}
-          .seek input::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#f00;margin-top:-6.5px}
-          .seek input::-moz-range-thumb{width:16px;height:16px;border:0;border-radius:50%;background:#f00}
+          .seek input::-webkit-slider-runnable-track{height:3px;background:#777;border-radius:2px}
+          .seek input::-moz-range-track{height:3px;background:#777}
+          .seek input::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffcf80,#ff7a00 60%,#c24e00);box-shadow:0 0 6px #ff8c00cc;margin-top:-6.5px}
+          .seek input::-moz-range-thumb{width:16px;height:16px;border:0;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffcf80,#ff7a00 60%,#c24e00);box-shadow:0 0 6px #ff8c00cc}
           .ctl{flex:0 0 10%;min-height:60px;display:flex;justify-content:space-around;align-items:center}
           .ctl button{background:none;border:0;padding:6px;cursor:pointer;color:#fff}
-          .play{width:62px;height:62px;border-radius:50%;background:red!important;border:3px solid #fff!important;display:grid;place-items:center;padding:0!important}
+          .play{width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 35% 28%,#ffb869,#ff7a00 55%,#c24e00)!important;border:3px solid #ddd!important;box-shadow:0 0 10px #ff7a0099;display:grid;place-items:center;padding:0!important}
           .play svg{width:40px;height:40px}
           .ctl button svg{display:block}
           svg{display:block}
@@ -198,13 +202,13 @@ jobs:
           input.v::-webkit-slider-thumb{-webkit-appearance:none;width:46px;height:28px;border-radius:3px;border:2px solid #fff4;background:linear-gradient(#ff3b3b 0 40%,#fff 40% 55%,#f22 55%)}
           input.v::-moz-range-thumb{width:46px;height:28px;border-radius:3px;border:2px solid #fff4;background:linear-gradient(#ff3b3b 0 40%,#fff 40% 55%,#f22 55%)}
           .lab{flex:0 0 auto;font-size:18px;margin-top:2px;letter-spacing:.5px}
-          .btns{flex:0 0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;row-gap:6px;margin-top:2%}
-          .btns>div{display:flex;flex-direction:column;align-items:center;gap:3px;font:900 12px "Arial Black",sans-serif;letter-spacing:2px}
-          .btns>div:nth-child(even){grid-column:3}
-          .key{width:58px;height:34px;border:4px solid #000;background:linear-gradient(#c8d02a 0 14%,#6b7320 14%);cursor:pointer;padding:0}
+          .btns{flex:0 0 auto;display:grid;grid-template-columns:repeat(4,1fr);column-gap:4px;margin-top:3%}
+          .btns>div{display:flex;flex-direction:column;align-items:center;gap:4px;font:700 13px Arial,sans-serif;letter-spacing:1px}
+          .key{width:72%;max-width:72px;height:34px;border-radius:3px;border:2px solid #000;background:linear-gradient(#c8d02a 0 14%,#6b7320 14%);box-shadow:inset 0 1px 1px #fff5;cursor:pointer;padding:0}
           .key.on{background:linear-gradient(#e8ff60 0 14%,#a4c820 14%);box-shadow:0 0 14px #cf3}
-          .key:active{transform:translateY(1px)}
-          .ic{font:400 22px/22px Arial;height:22px;letter-spacing:0}
+          .key.sh{background:radial-gradient(circle at 35% 25%,#ffb869,#ff7a00 60%,#c24e00);border-color:#000;display:grid;place-items:center}
+          .key.sh.on{box-shadow:0 0 14px #ff7a00cc}
+          .ic{font:400 22px/22px Arial;height:22px;letter-spacing:0;color:#fff}
           #pl{display:none;position:absolute;left:3%;right:3%;top:46%;bottom:128px;z-index:5;background:#0b2f44;border:2px solid #3d6f78;overflow:hidden}
           #pl.show{display:flex;flex-direction:column}
           .tabs{flex:0 0 auto;display:flex;gap:6px;padding:8px;overflow-x:auto;border-bottom:1px solid #fff3}
@@ -225,6 +229,7 @@ jobs:
           </head>
           <body>
           <div class="app">
+            <div class="bump l"></div><div class="bump l2"></div><div class="bump r"></div>
             <div class="title"><span class="t1">ADJM</span><span class="t2">Mp3</span><span class="t3">Player</span></div>
             <div class="vu" id="vu"></div>
             <div class="disp"><span id="np">----- NOW PLAYING -----</span></div>
@@ -240,10 +245,10 @@ jobs:
               <div class="ch"><div class="sl"><i class="b">+</i><input class="v" id="hi" type="range" min="-12" max="12" step="0.5" value="0"></div><div class="lab">HIGH</div></div>
             </div>
             <div class="btns">
-              <div><button class="key" id="add" aria-label="Tambah lagu"></button><span class="ic">☰+</span></div>
-              <div><button class="key" id="pbtn" aria-label="Playlist"></button><span>PLAYLIST</span></div>
-              <div><button class="key" id="shf" aria-label="Acak"></button><span class="ic">⤮</span></div>
-              <div><button class="key" id="kar" aria-label="Karaoke"></button><span>KARAOKE</span></div>
+              <div><button class="key" id="add" aria-label="Tambah lagu"></button><span>FILE</span></div>
+              <div><button class="key" id="pbtn" aria-label="Daftar lagu"></button><span>LIST</span></div>
+              <div><button class="key sh" id="shf" aria-label="Acak"><span class="ic">⤮</span></button><span>&nbsp;</span></div>
+              <div><button class="key" id="lr" aria-label="Kanal L/R"></button><span>L/R</span></div>
             </div>
             <div id="pl"></div>
             <input type="file" id="fi" accept="audio/*,.mp3" multiple hidden>
@@ -264,7 +269,7 @@ jobs:
             const src=ctx.createMediaElementSource(a);
             norm=ctx.createGain();kar=ctx.createGain();kar.gain.value=0;
             const sp=ctx.createChannelSplitter(2),l=ctx.createGain(),r=ctx.createGain(),sum=ctx.createGain();
-            l.gain.value=.5;r.gain.value=-.5;sum.channelCount=1;sum.channelCountMode='explicit';
+            lg=l;rg=r;l.gain.value=1;r.gain.value=0;sum.channelCount=1;sum.channelCountMode='explicit';
             src.connect(norm);src.connect(sp);sp.connect(l,0);sp.connect(r,1);l.connect(sum);r.connect(sum);sum.connect(kar);
             low=ctx.createBiquadFilter();low.type='lowshelf';low.frequency.value=200;
             high=ctx.createBiquadFilter();high.type='highshelf';high.frequency.value=3500;
@@ -324,10 +329,12 @@ jobs:
             renderList();
           };
           $('shf').onclick=()=>{shuf=!shuf;$('shf').classList.toggle('on',shuf)};
-          $('kar').onclick=()=>{
-            initAudio();const on=!$('kar').classList.contains('on');
-            $('kar').classList.toggle('on',on);
-            norm.gain.value=on?0:1;kar.gain.value=on?1.4:0;
+          let lrMode=0,lg,rg;
+          $('lr').onclick=()=>{
+            initAudio();lrMode=(lrMode+1)%3;
+            $('lr').classList.toggle('on',lrMode!==0);
+            if(lrMode===0){norm.gain.value=1;kar.gain.value=0}
+            else{norm.gain.value=0;kar.gain.value=1;lg.gain.value=lrMode===1?1:0;rg.gain.value=lrMode===2?1:0}
           };
           function placePl(){const A=document.querySelector('.app'),pl=$('pl');pl.style.top=document.querySelector('.mix').offsetTop+'px';pl.style.bottom=(A.clientHeight-document.querySelector('.btns').offsetTop+4)+'px'}
           $('pbtn').onclick=()=>{placePl();$('pl').classList.toggle('show');$('pbtn').classList.toggle('on',$('pl').classList.contains('show'))};
